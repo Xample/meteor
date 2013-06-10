@@ -113,8 +113,8 @@
 //    - node_modules: if Npm.require is called from this file, this is
 //      the path (relative to program.json) of the directory that should
 //      be search for npm modules
-//    - staticDir: directory to search for static assets when Assets.getText
-//      and Assets.getBinary are called from this file.
+//    - staticDirectory: directory to search for static assets when
+//      Assets.getText and Assets.getBinary are called from this file.
 //
 // /config.json:
 //
@@ -249,7 +249,7 @@ var File = function (options) {
   // in the "server" architecture.
   self.nodeModulesDirectory = null;
 
-  self.staticDir = null;
+  self.staticDirectory = null;
 
   self._contents = options.data || null; // contents, if known, as a Buffer
   self._hash = null; // hash, if known, as a hex string
@@ -337,9 +337,9 @@ _.extend(File.prototype, {
     if (relPath.match(/^\/packages\//)) {
       var dir = path.dirname(relPath);
       var base = path.basename(relPath, ".js");
-      self.staticDir = path.join('/static', dir, base);
+      self.staticDirectory = path.join('/static', dir, base);
     } else {
-      self.staticDir = path.join('/static', 'app');
+      self.staticDirectory = path.join('/static', 'app');
     }
   }
 });
@@ -966,7 +966,7 @@ _.extend(JsImage.prototype, {
         path: item.targetPath,
         node_modules: item.nodeModulesDirectory ?
           item.nodeModulesDirectory.preferredBundlePath : undefined,
-        staticDir: item.staticDir
+        staticDirectory: item.staticDirectory
       });
     });
 
@@ -1027,7 +1027,7 @@ JsImage.readFromDisk = function (controlFilePath) {
       targetPath: item.path,
       source: fs.readFileSync(path.join(dir, item.path)),
       nodeModulesDirectory: nmd,
-      staticDir: item.staticDir
+      staticDirectory: item.staticDirectory
     });
   });
 
@@ -1056,7 +1056,7 @@ _.extend(JsImageTarget.prototype, {
         targetPath: file.targetPath,
         source: file.contents().toString('utf8'),
         nodeModulesDirectory: file.nodeModulesDirectory,
-        staticDir: file.staticDir
+        staticDirectory: file.staticDirectory
       });
     });
 

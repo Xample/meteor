@@ -58,12 +58,12 @@ assert.doesNotThrow(function () {
     if (item.path === "/packages/test-package.js") {
       packageTxtPath = path.join(tmpOutputDir,
                                  "programs", "server",
-                                 item.staticDir, "test-package.txt");
+                                 item.staticDirectory, "test-package.txt");
     }
     if (item.path === "/app/test.js") {
       staticDir = path.join(tmpOutputDir,
                             "programs", "server",
-                            item.staticDir);
+                            item.staticDirectory);
     }
   });
   // Check that the files are where the manifest says they are

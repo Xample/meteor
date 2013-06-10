@@ -68,7 +68,7 @@ Fiber(function () {
           }
       }
     };
-    var staticDir = path.join(__dirname, fileInfo.staticDir);
+    var staticDirectory = path.join(__dirname, fileInfo.staticDirectory);
     var getAsset = function (assetPath, encoding, callback) {
       var fut;
       if (! callback) {
@@ -83,7 +83,7 @@ Fiber(function () {
       }, function (e) {
         Meteor._debug("Exception in callback of getAsset", e.stack);
       });
-      fs.readFile(path.join(staticDir, assetPath), encoding, _callback);
+      fs.readFile(path.join(staticDirectory, assetPath), encoding, _callback);
       if (fut)
         return fut.wait();
     };
